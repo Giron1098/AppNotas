@@ -77,7 +77,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         alerta.addTextField { (horaNota) in
             horaNota.text = "Última modificación: \(dateF.string(from: date))"
             horaNota.isEnabled = false
-            
         }
         let actionGuardar = UIAlertAction(title: "Guardar", style: .default) {_ in
             
@@ -99,7 +98,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         let actionCancelar = UIAlertAction(title: "Cancelar", style: .destructive, handler:  nil)
-        
         
         alerta.addAction(actionGuardar)
         alerta.addAction(actionCancelar)
