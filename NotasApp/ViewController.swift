@@ -8,6 +8,12 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var notaAEditar: String?
+    var indexNotaAEditar: Int?
+
+    var indexFechaAEditar: Int?
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let celda = TBL_Notas.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
@@ -22,6 +28,48 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return notas.count
     }
     
+    //MARK: - Eliminar una elemento
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete
+        {
+            print("Nota \"\(notas[indexPath.row])\" eliminada")
+            self.notas.remove(at: indexPath.row)
+            self.horarios.remove(at: indexPath.row)
+            
+            self.defaults.set(self.notas, forKey: "SavedNotes")
+            self.defaults.set(self.horarios, forKey: "SavedHours")
+            
+            TBL_Notas.reloadData()
+        }
+    }
+    
+    //MARK: - Identificar cuando se selecciona un elemento de la tabla
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(indexPath.row), \(notas[indexPath.row])")
+        
+        TBL_Notas.deselectRow(at: indexPath, animated: true)
+        notaAEditar = notas[indexPath.row]
+        indexNotaAEditar = indexPath.row
+        
+        indexFechaAEditar = indexPath.row
+        
+        performSegue(withIdentifier: "editarNota", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editarNota"
+        {
+            let objDestino = segue.destination as! EditarNotaViewController
+            
+            objDestino.notaRecibida = notaAEditar
+            objDestino.indexNota = indexNotaAEditar
+            objDestino.arrayNotas = self.notas
+            
+            objDestino.indexFecha = indexFechaAEditar
+            objDestino.arrayFechas = self.horarios
+        }
+    }
     
     var notas:[String] = []
     var horarios:[String] = []
@@ -37,6 +85,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //TBL_Notas.delegate = self
         //TBL_Notas.dataSource = self
         
+        
         if defaults.array(forKey: "SavedNotes") == nil
         {
            print("Por el momento no hay notas")
@@ -50,9 +99,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else {
             horarios = defaults.array(forKey: "SavedHours") as! [String]
         }
+    
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         
-
+        if defaults.array(forKey: "SavedNotes") == nil
+        {
+           print("Por el momento no hay notas nuevas")
+        } else {
+            notas = defaults.array(forKey: "SavedNotes") as! [String]
+        }
         
+        if defaults.array(forKey: "SavedHours") == nil
+        {
+            print("Por el momento no hay fechas nuevas")
+        } else {
+            horarios = defaults.array(forKey: "SavedHours") as! [String]
+        }
+        self.TBL_Notas.reloadData()
     }
 
     @IBAction func BTN_AddNota(_ sender: UIBarButtonItem) {
@@ -68,12 +133,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print("Última modificación: \(dateF.string(from: date))")
         let alerta = UIAlertController(title: "Nueva Nota", message: "Agregar", preferredStyle: .alert)
         
-        //Agregar campo para el texto de la nota
+        //MARK: - Agregar campo para el texto de la nota
         alerta.addTextField { (textoNota) in
             textoNota.placeholder = "Escribe tu nota"
         }
         
-        //Agregar campo para la hora de la nota
+        //MARK:- Agregar campo para la hora de la nota
         alerta.addTextField { (horaNota) in
             horaNota.text = "Última modificación: \(dateF.string(from: date))"
             horaNota.isEnabled = false

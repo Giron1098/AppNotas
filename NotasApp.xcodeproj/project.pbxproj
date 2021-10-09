@@ -13,6 +13,7 @@
 		28670548270E3BCF00A8855A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28670546270E3BCF00A8855A /* Main.storyboard */; };
 		2867054A270E3BD000A8855A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28670549270E3BD000A8855A /* Assets.xcassets */; };
 		2867054D270E3BD000A8855A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2867054B270E3BD000A8855A /* LaunchScreen.storyboard */; };
+		2867055627122F5B00A8855A /* EditarNotaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2867055527122F5B00A8855A /* EditarNotaViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		28670549270E3BD000A8855A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2867054C270E3BD000A8855A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2867054E270E3BD000A8855A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2867055527122F5B00A8855A /* EditarNotaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditarNotaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				28670549270E3BD000A8855A /* Assets.xcassets */,
 				2867054B270E3BD000A8855A /* LaunchScreen.storyboard */,
 				2867054E270E3BD000A8855A /* Info.plist */,
+				2867055527122F5B00A8855A /* EditarNotaViewController.swift */,
 			);
 			path = NotasApp;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 				28670545270E3BCF00A8855A /* ViewController.swift in Sources */,
 				28670541270E3BCF00A8855A /* AppDelegate.swift in Sources */,
 				28670543270E3BCF00A8855A /* SceneDelegate.swift in Sources */,
+				2867055627122F5B00A8855A /* EditarNotaViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
